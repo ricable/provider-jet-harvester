@@ -21,16 +21,26 @@ import (
 
 	"github.com/crossplane/terrajet/pkg/controller"
 
-	resource "github.com/crossplane-contrib/provider-jet-template/internal/controller/null/resource"
-	providerconfig "github.com/crossplane-contrib/provider-jet-template/internal/controller/providerconfig"
+	clusternetwork "github.com/crossplane-contrib/provider-jet-harvester/internal/controller/clusternetwork/clusternetwork"
+	image "github.com/crossplane-contrib/provider-jet-harvester/internal/controller/image/image"
+	network "github.com/crossplane-contrib/provider-jet-harvester/internal/controller/network/network"
+	providerconfig "github.com/crossplane-contrib/provider-jet-harvester/internal/controller/providerconfig"
+	key "github.com/crossplane-contrib/provider-jet-harvester/internal/controller/ssh/key"
+	virtualmachine "github.com/crossplane-contrib/provider-jet-harvester/internal/controller/virtualmachine/virtualmachine"
+	volume "github.com/crossplane-contrib/provider-jet-harvester/internal/controller/volume/volume"
 )
 
 // Setup creates all controllers with the supplied logger and adds them to
 // the supplied manager.
 func Setup(mgr ctrl.Manager, o controller.Options) error {
 	for _, setup := range []func(ctrl.Manager, controller.Options) error{
-		resource.Setup,
+		clusternetwork.Setup,
+		image.Setup,
+		network.Setup,
 		providerconfig.Setup,
+		key.Setup,
+		virtualmachine.Setup,
+		volume.Setup,
 	} {
 		if err := setup(mgr, o); err != nil {
 			return err

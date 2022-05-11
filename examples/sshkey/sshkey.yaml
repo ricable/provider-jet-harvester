@@ -1,0 +1,10 @@
+apiVersion: ssh.harvester.jet.crossplane.io/v1alpha1
+kind: Key
+metadata:
+  name: sshkey-crossplane
+spec:
+  forProvider:
+    description: "Managed with Crossplane Harvester Provider (generated with Terrajet)"
+    publicKey: "test"
+  providerConfigRef:
+    name: default

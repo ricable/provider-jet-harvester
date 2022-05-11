@@ -22,15 +22,25 @@ package apis
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 
-	v1alpha1 "github.com/crossplane-contrib/provider-jet-template/apis/null/v1alpha1"
-	v1alpha1apis "github.com/crossplane-contrib/provider-jet-template/apis/v1alpha1"
+	v1alpha1 "github.com/crossplane-contrib/provider-jet-harvester/apis/clusternetwork/v1alpha1"
+	v1alpha1image "github.com/crossplane-contrib/provider-jet-harvester/apis/image/v1alpha1"
+	v1alpha1network "github.com/crossplane-contrib/provider-jet-harvester/apis/network/v1alpha1"
+	v1alpha1ssh "github.com/crossplane-contrib/provider-jet-harvester/apis/ssh/v1alpha1"
+	v1alpha1apis "github.com/crossplane-contrib/provider-jet-harvester/apis/v1alpha1"
+	v1alpha1virtualmachine "github.com/crossplane-contrib/provider-jet-harvester/apis/virtualmachine/v1alpha1"
+	v1alpha1volume "github.com/crossplane-contrib/provider-jet-harvester/apis/volume/v1alpha1"
 )
 
 func init() {
 	// Register the types with the Scheme so the components can map objects to GroupVersionKinds and back
 	AddToSchemes = append(AddToSchemes,
 		v1alpha1.SchemeBuilder.AddToScheme,
+		v1alpha1image.SchemeBuilder.AddToScheme,
+		v1alpha1network.SchemeBuilder.AddToScheme,
+		v1alpha1ssh.SchemeBuilder.AddToScheme,
 		v1alpha1apis.SchemeBuilder.AddToScheme,
+		v1alpha1virtualmachine.SchemeBuilder.AddToScheme,
+		v1alpha1volume.SchemeBuilder.AddToScheme,
 	)
 }
 

@@ -1,0 +1,13 @@
+apiVersion: virtualmachine.harvester.jet.crossplane.io/v1alpha1
+kind: Virtualmachine
+metadata:
+  name: vm-crossplane
+spec:
+  forProvider:
+    description: "Managed with Crossplane Harvester Provider (generated with Terrajet)"
+    networkInterface:
+      - name: network-crossplane
+    disk:
+      - name: disk-crossplane
+  providerConfigRef:
+    name: default

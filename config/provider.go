@@ -22,13 +22,20 @@ import (
 
 	tjconfig "github.com/crossplane/terrajet/pkg/config"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
+	"github.com/crossplane-contrib/provider-jet-harvester/config/clusternetwork"
+	"github.com/crossplane-contrib/provider-jet-harvester/config/image"
+	"github.com/crossplane-contrib/provider-jet-harvester/config/network"
+	"github.com/crossplane-contrib/provider-jet-harvester/config/sshkey"
+	"github.com/crossplane-contrib/provider-jet-harvester/config/virtualmachine"
+	"github.com/crossplane-contrib/provider-jet-harvester/config/volume"
 
-	"github.com/crossplane-contrib/provider-jet-template/config/null"
+
+	//"github.com/crossplane-contrib/provider-jet-harvester/config/null"
 )
 
 const (
-	resourcePrefix = "template"
-	modulePath     = "github.com/crossplane-contrib/provider-jet-template"
+	resourcePrefix = "harvester"
+	modulePath     = "github.com/crossplane-contrib/provider-jet-harvester"
 )
 
 //go:embed schema.json
@@ -44,11 +51,27 @@ func GetProvider() *tjconfig.Provider {
 	}
 
 	pc := tjconfig.NewProviderWithSchema([]byte(providerSchema), resourcePrefix, modulePath,
-		tjconfig.WithDefaultResourceFn(defaultResourceFn))
+		tjconfig.WithDefaultResourceFn(defaultResourceFn),
+	    tjconfig.WithIncludeList([]string{
+			"harvester_clusternetwork$",
+			"harvester_network$",
+			"harvester_image$",
+			"harvester_ssh_key$",
+			"harvester_virtualmachine$",
+			"harvester_volume$",
+		}))
+
+
 
 	for _, configure := range []func(provider *tjconfig.Provider){
 		// add custom config functions
-		null.Configure,
+		clusternetwork.Configure,
+		image.Configure,
+		network.Configure,
+		sshkey.Configure,
+		virtualmachine.Configure,
+		volume.Configure,
+		//null.Configure,
 	} {
 		configure(pc)
 	}

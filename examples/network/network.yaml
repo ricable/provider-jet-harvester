@@ -1,0 +1,10 @@
+apiVersion: network.harvester.jet.crossplane.io/v1alpha1
+kind: Network
+metadata:
+  name: network-crossplane
+spec:
+  forProvider:
+    description: "Managed with Crossplane Harvester Provider (generated with Terrajet)"
+    vlanId: 100
+  providerConfigRef:
+    name: default
